@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: myapp1-deployment
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp1
+  template:  
+    metadata: 
+      name: myapp1-pod
+      labels: 
+        app: myapp1  
+    spec:
+      containers:
+        - name: myapp1-container
+          #image: us-central1-docker.pkg.dev/<GCP-PROJECT-ID>/<ARTIFACT-REPO>/myapp1:v1
+          image: us-central1-docker.pkg.dev/devops-mf-430911/gke-artifact-repo1/myapp1:latest
+          ports: 
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: myapp1-lb-service
+spec:
+  type: LoadBalancer # ClusterIp, # NodePort
+  selector:
+    app: myapp1
+  ports: 
+    - name: http
+      port: 80 # Service Port
+      targetPort: 80 # Container Port
