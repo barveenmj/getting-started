@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    triggers {
+        // Poll SCM every 5 minutes
+        pollSCM('H/5 * * * *')
+    }
 
     environment {
         // Define environment variables
@@ -58,11 +62,44 @@ pipeline {
                 }
             }
         }
-    }
-
-    /*post {
-        always {
-            // Clean up actions (if necessary)
+        stage('Interact with Kubernetes') {
+            steps {
+                script {
+                    sh 'kubectl get pods'
+                }
+            }
         }
-    }*/
+    }
+    post {
+        success {
+            emailext (
+                to: 'recipient@example.com',
+                subject: "Build Successful: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                body: "The build was successful. Check the console output for details.\n\n${env.BUILD_URL}"
+            )
+        }
+        failure {
+            emailext (
+                to: 'recipient@example.com',
+                subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                body: "The build failed. Check the console output for details.\n\n${env.BUILD_URL}",
+                attachLog: true
+            )
+        }
+        unstable {
+            emailext (
+                to: 'recipient@example.com',
+                subject: "Build Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                body: "The build is unstable. Check the console output for details.\n\n${env.BUILD_URL}",
+                attachLog: true
+            )
+        }
+        aborted {
+            emailext (
+                to: 'recipient@example.com',
+                subject: "Build Aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                body: "The build was aborted. Check the console output for details.\n\n${env.BUILD_URL}"
+            )
+        }
+    }
 }
