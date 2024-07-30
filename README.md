@@ -6,6 +6,7 @@ Deploy application using Jenkins Pipeline to GKE Cluster:
 
 **Requirements:**
 **Region**: us-central-1
+**Project name**: DevOps-MF
 **Jenkins Server** - E2 medium, OS type - Centos 9 stream, Data - 30 gb
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/93a3d549-b31a-4373-9655-935f41b9fbfc">
 
