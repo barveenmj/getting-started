@@ -27,7 +27,7 @@ STEPS INVOLVED:
 2. Login gcp account using gcloud-auth-login
 3. After Jenkins installation, Setup and Login Jenkins server using this url **http://35.232.123.159:8080/**
 4. Install plugins like ssh, scp, docker plugin, kubernetes, google kubenetes engine plugins, gcloud sdk, Docker Pipeline in manage jenkins. After installation ,restart it.
-5. Now create a pipeline job as name - gke-pipeline --> configure --> copy the script from Jenkisfile adn paste in pipeline. then save it.
+5. Now create a pipeline job as name - gke-pipeline --> configure --> copy the script from Jenkisfile and paste in pipeline. then save it.
 
 **#Create a Keyfile Service Account in GCP IAM**
 <img width="951" alt="image" src="https://github.com/user-attachments/assets/66f8b1b5-c488-42b0-91d6-8f5736a235ef">
