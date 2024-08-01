@@ -20,7 +20,6 @@ spec:
           image: us-central1-docker.pkg.dev/devops-mf-430911/gke-artifact-repo1/myapp1:latest
           ports: 
             - containerPort: 80
-
 ---
 apiVersion: v1
 kind: Service 
